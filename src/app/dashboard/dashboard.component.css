@@ -1,0 +1,34 @@
+.login-container {
+  background-color: #c1baa1;
+  padding: 100px;
+  border-radius: 10px;
+}
+
+.login-card {
+  background-color: #d7d3bf;
+  padding: 15px 15px 15px 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.form-field {
+  padding: 5px 0px;
+}
+
+h4 {
+  text-align: center;
+}
+
+label {
+  text-align: left;
+  display: block;
+}
+
+button {
+  background-color: white;
+  display: inline;
+}
+
+h3 {
+  display: inline;
+}

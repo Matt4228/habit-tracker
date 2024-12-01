@@ -1,0 +1,30 @@
+<h2>Your Habits</h2>
+<div>
+  <button (click)="decMonth()"><</button>
+  <h3>{{ shownDate }}</h3>
+  <button (click)="incMonth()">></button>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Habit</th>
+      <th *ngFor="let day of daysInMonth">{{ day }}</th>
+      <th>Progress</th>
+      <th>Goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let habit of habits">
+      <td>{{ habit.name }}</td>
+      <td *ngFor="let day of daysInMonth">
+        <input
+          type="checkbox"
+          [checked]="isDaySuccessful(habit, day)"
+          (change)="toggleSuccess(habit, day)"
+        />
+      </td>
+      <td>{{ calculateProgress(habit) }}</td>
+      <td>{{ habit.goal }}</td>
+    </tr>
+  </tbody>
+</table>
