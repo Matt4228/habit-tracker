@@ -1,30 +1,72 @@
-<h2>Your Habits</h2>
-<div>
-  <button (click)="decMonth()"><</button>
-  <h3>{{ shownDate }}</h3>
-  <button (click)="incMonth()">></button>
+<div class="componentContainer">
+  <div class="top-bar">
+    <span class="app-name">Habit Tracker</span>
+    <button class="profile-btn" (click)="onProfileClick()">
+      <img src="account.png" alt="Profile Icon" class="profile-icon" />
+    </button>
+  </div>
+  <div class="dashboardContainer">
+    <h2 class="headerTitle">Your Habits</h2>
+    <div class="monthSelectorContainer">
+      <button (click)="decMonth()" class="navButton leftButton"><</button>
+      <h3>{{ shownDate }}</h3>
+      <button (click)="incMonth()" class="navButton rightButton">></button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="header">Habits</th>
+          <th
+            *ngFor="let day of weekDaysInMonth; let i = index"
+            class="weekdays"
+            [ngClass]="{ today: isToday(daysInMonth[i]) }"
+          >
+            {{ day }}
+          </th>
+          <th rowspan="2" class="header">Progress</th>
+          <th rowspan="2" class="header">Goal</th>
+        </tr>
+        <tr>
+          <th
+            *ngFor="let day of daysInMonth"
+            class="days"
+            [ngClass]="{ today: isToday(day) }"
+          >
+            {{ day }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let habit of habits">
+          <td class="rowHeader">{{ habit.name }}</td>
+          <td
+            *ngFor="let day of daysInMonth"
+            class="cell"
+            [ngClass]="{ today: isToday(day) }"
+          >
+            <label class="cellContainer">
+              <input
+                type="checkbox"
+                [checked]="isDaySuccessful(habit, day)"
+                (change)="toggleSuccess(habit, day)"
+              />
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td class="rowHeader">{{ calculateProgress(habit) }}</td>
+          <td class="rowHeader">{{ habit.goal }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="newHabitButton" (click)="addHabit()">+ New Habit</button>
+    <app-new-habit
+      *ngIf="displayNewHabit"
+      (newHabitEvent)="createHabit($event)"
+    ></app-new-habit>
+    <app-account-menu *ngIf="displayAccountMenu"></app-account-menu>
+    <div class="motivationQuoteContainer">
+      <p><strong>Motivational Quote of the Day:</strong></p>
+      <p>{{ quote }}</p>
+    </div>
+  </div>
 </div>
-<table>
-  <thead>
-    <tr>
-      <th>Habit</th>
-      <th *ngFor="let day of daysInMonth">{{ day }}</th>
-      <th>Progress</th>
-      <th>Goal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let habit of habits">
-      <td>{{ habit.name }}</td>
-      <td *ngFor="let day of daysInMonth">
-        <input
-          type="checkbox"
-          [checked]="isDaySuccessful(habit, day)"
-          (change)="toggleSuccess(habit, day)"
-        />
-      </td>
-      <td>{{ calculateProgress(habit) }}</td>
-      <td>{{ habit.goal }}</td>
-    </tr>
-  </tbody>
-</table>

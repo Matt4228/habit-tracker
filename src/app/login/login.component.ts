@@ -8,8 +8,7 @@ import {
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Indicates a standalone component
-  imports: [ReactiveFormsModule], // Import necessary Angular modules directly
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })

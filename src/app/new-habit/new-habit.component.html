@@ -1,0 +1,25 @@
+<div class="componentContainer">
+  <div class="new-habit-container">
+    <div class="new-habit-card">
+      <form
+        [formGroup]="validateForm"
+        class="new-habit-form"
+        (ngSubmit)="submitForm()"
+      >
+        <div class="form-field">
+          <label for="habitName">Habit Name:</label>
+          <input id="habitName" formControlName="habitName" />
+        </div>
+        <div class="form-field">
+          <label for="goal">Monthly Goal:</label>
+          <input id="goal" formControlName="goal" />
+        </div>
+        <div>
+          <button type="submit" [disabled]="validateForm.invalid">
+            Create Habit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

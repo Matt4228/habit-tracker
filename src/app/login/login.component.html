@@ -1,22 +1,24 @@
-<div class="login-container">
-  <h4 class="login-header">Sign in to HabitTracker</h4>
-  <div class="login-card">
-    <form
-      [formGroup]="validateForm"
-      class="login-form"
-      (ngSubmit)="submitForm()"
-    >
-      <div class="form-field">
-        <label for="username">Username:</label>
-        <input id="username" formControlName="username" />
-      </div>
-      <div class="form-field">
-        <label for="password">Password:</label>
-        <input id="password" type="password" formControlName="password" />
-      </div>
-      <div>
-        <button type="submit" [disabled]="validateForm.invalid">Login</button>
-      </div>
-    </form>
+<div class="componentContainer">
+  <div class="loginContainer">
+    <h4 class="login-header">Sign in to HabitTracker</h4>
+    <div class="login-card">
+      <form
+        [formGroup]="validateForm"
+        class="login-form"
+        (ngSubmit)="submitForm()"
+      >
+        <div class="form-field">
+          <label for="username">Username:</label>
+          <input id="username" formControlName="username" />
+        </div>
+        <div class="form-field">
+          <label for="password">Password:</label>
+          <input id="password" type="password" formControlName="password" />
+        </div>
+        <div>
+          <button type="submit" [disabled]="validateForm.invalid">Login</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

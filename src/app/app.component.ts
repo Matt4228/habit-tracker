@@ -1,21 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    LoginComponent,
-    ReactiveFormsModule,
-    RegisterComponent,
-    DashboardComponent,
-    CommonModule,
-  ],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

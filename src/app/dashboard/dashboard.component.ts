@@ -1,25 +1,71 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Habit } from '../habit';
+import { NewHabitComponent } from '../new-habit/new-habit.component';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClient } from '@angular/common/http';
+import { AccountMenuComponent } from '../account-menu/account-menu.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    NewHabitComponent,
+    HttpClientModule,
+    NewHabitComponent,
+    AccountMenuComponent,
+  ], // Add HttpClientModule here
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+  displayNewHabit = false;
+  displayAccountMenu = false;
   today = new Date();
   d = new Date(this.today.getFullYear(), this.today.getMonth(), 1);
   month = this.d.toLocaleString('default', { month: 'long' });
   year = this.d.getFullYear();
   shownDate = this.month + ', ' + this.year;
   numDays = new Date(this.d.getFullYear(), this.d.getMonth() + 1, 0).getDate();
-  daysInMonth = Array.from({ length: this.numDays }, (_, i) => i + 1);
+  daysInMonth: number[] = Array.from({ length: this.numDays }, (_, i) => i + 1);
   weekDaysInMonth = Array.from({ length: this.numDays }, (_, i) => {
     const date = new Date(this.d.getFullYear(), this.d.getMonth(), i + 1);
-    return date.toLocaleString('default', { weekday: 'short' }).charAt(0); // Get the first letter of the weekday
+    return date.toLocaleString('default', { weekday: 'short' }).charAt(0);
   });
+
+  quote: string = '';
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.fetchRandomQuote();
+  }
+
+  fetchRandomQuote(): void {
+    this.http
+      .get<any>('https://zenquotes.io/api/random')
+      .subscribe((response) => {
+        if (response && response.length > 0) {
+          this.quote = '"' + response[0].q + '" - ' + response[0].a;
+        }
+      });
+  }
+
+  isToday(day: number | string): boolean {
+    const today = new Date();
+    const todayDate = today.getDate();
+    const todayMonth = today.getMonth();
+    const todayYear = today.getFullYear();
+
+    const dayNumber = typeof day === 'string' ? parseInt(day, 10) : day;
+
+    return (
+      day === todayDate &&
+      this.d.getMonth() === todayMonth &&
+      this.d.getFullYear() === todayYear
+    );
+  }
 
   // Habit data using the new structure
   habits: Habit[] = [
@@ -36,10 +82,6 @@ export class DashboardComponent {
       goal: 15,
     },
   ];
-
-  ngOnInit(): void {
-    // Any additional initialization logic can go here
-  }
 
   // Method to toggle success for a specific day
   toggleSuccess(habit: Habit, day: number): void {
@@ -58,7 +100,13 @@ export class DashboardComponent {
 
   // Method to calculate progress for a habit
   calculateProgress(habit: Habit): number {
-    return habit.tracking_successes.length;
+    return habit.tracking_successes.filter((date) => {
+      const successDate = new Date(date);
+      return (
+        successDate.getFullYear() === this.d.getFullYear() &&
+        successDate.getMonth() === this.d.getMonth()
+      );
+    }).length;
   }
 
   // Check if a day is marked successful
@@ -102,4 +150,15 @@ export class DashboardComponent {
       return date.toLocaleString('default', { weekday: 'short' }).charAt(0); // Get the first letter of the weekday
     });
   }
+
+  addHabit() {
+    this.displayNewHabit = true;
+  }
+
+  createHabit(newHabit: Habit) {
+    this.habits.push(newHabit);
+    this.displayNewHabit = false;
+  }
+
+  onProfileClick() {}
 }
