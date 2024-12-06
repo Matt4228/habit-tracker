@@ -62,3 +62,16 @@ button {
 button:hover {
   background-color: #355027;
 }
+
+.goToRegisterContainer p {
+  text-align: left;
+  margin: 10px 0 0 0;
+}
+
+.goToRegisterContainer button {
+  background-color: #2f5cc6;
+}
+
+.goToRegisterContainer button:hover {
+  background-color: #234595;
+}

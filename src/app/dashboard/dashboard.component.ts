@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Habit } from '../habit';
 import { NewHabitComponent } from '../new-habit/new-habit.component';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { AccountMenuComponent } from '../account-menu/account-menu.component';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ import { AccountMenuComponent } from '../account-menu/account-menu.component';
     HttpClientModule,
     NewHabitComponent,
     AccountMenuComponent,
-  ], // Add HttpClientModule here
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -36,13 +37,19 @@ export class DashboardComponent {
 
   quote: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
+    this.populateDashboard();
+    console.log('init');
+  }
+
+  populateDashboard(): void {
     this.fetchRandomQuote();
   }
 
   fetchRandomQuote(): void {
+    console.log('getting quote!');
     this.http
       .get<any>('https://zenquotes.io/api/random')
       .subscribe((response) => {
@@ -91,9 +98,9 @@ export class DashboardComponent {
     const index = habit.tracking_successes.indexOf(date);
 
     if (index === -1) {
-      habit.tracking_successes.push(date); // Mark success
+      habit.tracking_successes.push(date);
     } else {
-      habit.tracking_successes.splice(index, 1); // Remove success
+      habit.tracking_successes.splice(index, 1);
     }
     console.log(this.habits);
   }
@@ -130,7 +137,7 @@ export class DashboardComponent {
     this.daysInMonth = Array.from({ length: this.numDays }, (_, i) => i + 1);
     this.weekDaysInMonth = Array.from({ length: this.numDays }, (_, i) => {
       const date = new Date(this.d.getFullYear(), this.d.getMonth(), i + 1);
-      return date.toLocaleString('default', { weekday: 'short' }).charAt(0); // Get the first letter of the weekday
+      return date.toLocaleString('default', { weekday: 'short' }).charAt(0);
     });
   }
 
@@ -147,7 +154,7 @@ export class DashboardComponent {
     this.daysInMonth = Array.from({ length: this.numDays }, (_, i) => i + 1);
     this.weekDaysInMonth = Array.from({ length: this.numDays }, (_, i) => {
       const date = new Date(this.d.getFullYear(), this.d.getMonth(), i + 1);
-      return date.toLocaleString('default', { weekday: 'short' }).charAt(0); // Get the first letter of the weekday
+      return date.toLocaleString('default', { weekday: 'short' }).charAt(0);
     });
   }
 
@@ -160,5 +167,25 @@ export class DashboardComponent {
     this.displayNewHabit = false;
   }
 
-  onProfileClick() {}
+  cancelNewHabit() {
+    this.displayNewHabit = false;
+  }
+
+  onProfileClick() {
+    if (this.displayAccountMenu == false) {
+      this.displayAccountMenu = true;
+    } else {
+      this.displayAccountMenu = false;
+    }
+  }
+
+  logOut() {
+    console.log('logout');
+    this.router.navigate(['/login']);
+  }
+
+  deleteAccount() {
+    console.log('delete');
+    this.router.navigate(['/login']);
+  }
 }

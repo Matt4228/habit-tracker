@@ -1,6 +1,9 @@
 <div class="componentContainer">
   <div class="new-habit-container">
     <div class="new-habit-card">
+      <div class="cancelButtonContainer">
+        <button (click)="cancelNewHabit()">X</button>
+      </div>
       <form
         [formGroup]="validateForm"
         class="new-habit-form"

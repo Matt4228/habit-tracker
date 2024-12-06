@@ -290,3 +290,11 @@ td.today {
   margin-left: auto;
   margin-right: auto;
 }
+
+app-account-menu {
+  display: none;
+}
+
+app-account-menu.active {
+  display: flex;
+}

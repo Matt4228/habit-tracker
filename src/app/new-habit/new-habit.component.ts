@@ -15,6 +15,7 @@ import { Habit } from '../habit';
 })
 export class NewHabitComponent {
   @Output() newHabitEvent = new EventEmitter<any>();
+  @Output() cancelNewHabitEvent = new EventEmitter<any>();
 
   validateForm!: FormGroup;
 
@@ -40,5 +41,9 @@ export class NewHabitComponent {
     } else {
       console.error('Form is invalid!');
     }
+  }
+
+  cancelNewHabit(): void {
+    this.cancelNewHabitEvent.emit('new habit cancelled');
   }
 }

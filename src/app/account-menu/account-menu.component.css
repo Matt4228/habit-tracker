@@ -1,0 +1,36 @@
+.componentContainer {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: white;
+  border-radius: 5px;
+  width: 200px;
+  z-index: 10000;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  align-items: center;
+}
+
+.componentContainer button {
+  width: 90%;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.deleteAccount {
+  color: #a21616;
+}
+
+.componentContainer button:hover {
+  color: white;
+  background-color: #a21616;
+}

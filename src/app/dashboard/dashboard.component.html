@@ -5,6 +5,13 @@
       <img src="account.png" alt="Profile Icon" class="profile-icon" />
     </button>
   </div>
+  <div>
+    <app-account-menu
+      [ngClass]="{ active: displayAccountMenu }"
+      (logOutEvent)="logOut()"
+      (deleteAccountEvent)="deleteAccount()"
+    ></app-account-menu>
+  </div>
   <div class="dashboardContainer">
     <h2 class="headerTitle">Your Habits</h2>
     <div class="monthSelectorContainer">
@@ -62,8 +69,8 @@
     <app-new-habit
       *ngIf="displayNewHabit"
       (newHabitEvent)="createHabit($event)"
+      (cancelNewHabitEvent)="cancelNewHabit()"
     ></app-new-habit>
-    <app-account-menu *ngIf="displayAccountMenu"></app-account-menu>
     <div class="motivationQuoteContainer">
       <p><strong>Motivational Quote of the Day:</strong></p>
       <p>{{ quote }}</p>

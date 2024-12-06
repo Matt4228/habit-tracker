@@ -63,3 +63,19 @@ button {
 button:hover {
   background-color: #355027;
 }
+
+.cancelButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancelButtonContainer button {
+  width: auto;
+  padding: 7px 11px;
+  margin: 0;
+  background-color: #ca1c1c;
+}
+
+.cancelButtonContainer button:hover {
+  background-color: #a21616;
+}
