@@ -1,5 +1,5 @@
 # HabitTracker
-COMPP 426 Final Project
+COMP 426 Final Project
 side note: miketravels and mikeroams are both Michael
 
 A great way to build healthy habits and consistency in your everyday life
