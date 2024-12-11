@@ -1,59 +1,17 @@
 # HabitTracker
+COMPP 426 Final Project
+side note: miketravels and mikeroams are both Michael
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.1.
+A great way to build healthy habits and consistency in your everyday life
 
-## Development server
+-front end that is interactive and event-driven:
+We used angular to create a responsive front end which consists of a users habit dashboard, login screen, and register screen
 
-To start a local development server, run:
+-back end that serves at least two resources with a RESTful CRUD (create, read, update, and delete) API and session-persistent state  
+Our backend we built using MySQL which allows the user to track habits that persist beyond the single user session and update them as necessary
 
-```bash
-ng serve
-```
+-Uses at least one 3rd party API
+HabitTracker makes use of zenquotes' public API to provide users with a new random motivational quote every time they visit the habit dashboard
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Please check out our video demo below:
+https://youtu.be/lc5oO4zbZTs
