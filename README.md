@@ -1,17 +1,23 @@
 # HabitTracker
-COMP 426 Final Project
-side note: miketravels and mikeroams are both Michael
 
-A great way to build healthy habits and consistency in your everyday life
+## COMP 426 Final Project
 
-Front end that is interactive and event-driven:
--We used angular to create a responsive front end which consists of a users habit dashboard, login screen, and register screen
+**A great way to build healthy habits and consistency in your everyday life.**
 
-Back end that serves at least two resources with a RESTful CRUD (create, read, update, and delete) API and session-persistent state  
--Our backend we built using MySQL which allows the user to track habits that persist beyond the single user session and update them as necessary
+### Frontend: Interactive and Event-Driven
+- We used Angular to create a responsive front end that includes:
+  - A user's habit dashboard
+  - Login screen
+  - Register screen
 
-Uses at least one 3rd party API
--HabitTracker makes use of zenquotes' public API to provide users with a new random motivational quote every time they visit the habit dashboard
+### Backend: Persistent and RESTful
+- Built using MySQL, our backend supports:
+  - Session-persistent state
+  - A RESTful CRUD API to track habits across user sessions and allow updates as necessary
 
-Please check out our video demo below:
-https://youtu.be/U4kkAbbJOGU
+### Integration with Third-Party API
+- HabitTracker leverages ZenQuotes' public API to provide users with a new random motivational quote every time they visit the habit dashboard.
+
+### Demo
+Check out our video demo below:
+[https://youtu.be/U4kkAbbJOGU](https://youtu.be/U4kkAbbJOGU)
