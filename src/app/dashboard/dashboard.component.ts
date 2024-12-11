@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Habit } from '../habit';
 import { NewHabitComponent } from '../new-habit/new-habit.component';
@@ -21,6 +21,12 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+  mysql = require('mysql2/promise');
+  user_id = null;
+  handleEvent('login',user){
+    this.user_id = user;
+  };
+  @Output() deleteAccountID = new EventEmitter<any>();
   displayNewHabit = false;
   displayAccountMenu = false;
   today = new Date();
@@ -74,8 +80,8 @@ export class DashboardComponent {
     );
   }
 
-  // Habit data using the new structure
-  habits: Habit[] = [
+  // Habit data using the new structure. Placeholder for testing functionality.
+  /*habits: Habit[] = [
     {
       name: 'Drink Water',
       tracking_successes: ['2024-12-04'],
@@ -89,6 +95,41 @@ export class DashboardComponent {
       goal: 15,
     },
   ];
+  */
+
+   // Habit data using the new structure
+  habits: Habit[] = this.fetchHabits(this.user_id);
+
+  fetchHabits(user_id) {
+    const pool = this.mysql.createPool({
+      host: 'localhost',
+      user: 'root',
+      password: '0000',
+      database: 'habitsql'
+    });
+
+    try {
+        const connection = pool.getConnection();
+        const [rows] = connection.query('SELECT * FROM habits WHERE user_id = ?', [user_id]);
+        connection.release();
+
+        const habits = rows.map(row => ({
+            name: row.habit_name,
+            tracking_successes: JSON.parse(row.successes),
+            start_date: row.start_date.toISOString().split('T')[0],
+            goal: row.goal
+        }));
+
+        return habits;
+
+    } catch (error) {
+        console.error('Error fetching habits:', error);
+    } finally {
+        pool.end();
+    }
+}
+
+  
 
   // Method to toggle success for a specific day
   toggleSuccess(habit: Habit, day: number): void {
@@ -102,8 +143,29 @@ export class DashboardComponent {
     } else {
       habit.tracking_successes.splice(index, 1);
     }
+    this.updateHabits(habit.tracking_successes, this.user_id, habit.name)
     console.log(this.habits);
   }
+
+  updateHabits(user_id, name, successes) {
+    const pool = this.mysql.createPool({
+      host: 'localhost',
+      user: 'root',
+      password: '0000',
+      database: 'habitsql'
+    });
+
+    try {
+        const connection = pool.getConnection();
+        const [rows] = connection.query('UPDATE habits SET sucesses = ? WHERE user_id = ?, name = ?', [successes, user_id, name]);
+        connection.release();
+
+    } catch (error) {
+        console.error('Error fetching habits:', error);
+    } finally {
+        pool.end();
+    }
+}
 
   // Method to calculate progress for a habit
   calculateProgress(habit: Habit): number {
@@ -189,3 +251,4 @@ export class DashboardComponent {
     this.router.navigate(['/login']);
   }
 }
+

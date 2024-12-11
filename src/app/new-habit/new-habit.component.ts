@@ -18,13 +18,13 @@ export class NewHabitComponent {
   @Output() cancelNewHabitEvent = new EventEmitter<any>();
 
   validateForm!: FormGroup;
-
+  mysql = require('mysql2/promise');
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       habitName: ['', [Validators.required]],
-      goal: ['', [Validators.required]],
+      goal: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
     });
   }
 
@@ -38,8 +38,31 @@ export class NewHabitComponent {
         start_date: new Date().toISOString().split('T')[0],
         goal: this.validateForm.get('goal')?.value,
       });
+      this.addHabit(this.validateForm.value.habit_name, this.validateForm.value.goal)
     } else {
       console.error('Form is invalid!');
+    }
+  }
+
+  addHabit(name, goal) {
+    const pool = this.mysql.createPool({
+      host: 'localhost',
+      user: 'root',
+      password: '0000',
+      database: 'habitsql'
+    });
+  
+    try {
+      const connection = pool.getConnection();
+  
+      const [result] = connection.query('INSERT INTO habits (habit_name, goal) VALUES (?, ?)', [name, goal]);
+  
+      console.log('User added successfully:', result.insertId);
+      connection.release();
+    } catch (error) {
+      console.error('Error adding user:', error);
+    } finally {
+      pool.end();
     }
   }
 
