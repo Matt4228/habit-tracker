@@ -4,6 +4,8 @@
 
 **A great way to build healthy habits and consistency in your everyday life.**
 
+side note: miketravels and mikeroams are both Michael
+
 ### Frontend: Interactive and Event-Driven
 - We used Angular to create a responsive front end that includes:
   - A user's habit dashboard
